@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class Enemy : MonoBehaviour
   private Vector3 nextWaypoint;
   private bool stop = false;
   private float healthPerUnit;
-  public Transform healthBar;
+
+
+    public Transform healthBar;
+
+  public UnityEvent DeathEvent;
 
   void Start()
   {
@@ -24,7 +29,8 @@ public class Enemy : MonoBehaviour
     myPathThroughLife = route.path;
     transform.position = myPathThroughLife[index].transform.position;
     Recalculate();
-  }
+    
+    }
 
   void Update()
   {
@@ -58,25 +64,41 @@ public class Enemy : MonoBehaviour
 
   public void Damage()
   {
-        health -= 20;
-    if (health <= 0)
-    {
-      
-        //Debug.Log($"{transform.name} is Dead");
-        Destroy(this.gameObject);
-        coinCollected(5);
+    Damage(20);
+  
 
     }
 
+
+  public void Damage(float hitAmount)
+  {
+    health -= hitAmount;
+        
+        if (health <= 0)
+    {
+
+            
+      Debug.Log($"{transform.name} is Dead");
+      DeathEvent.Invoke();
+      DeathEvent.RemoveAllListeners();
+            
+            Destroy(this.gameObject);
+            
+            coinCollected(5);
+            
+        }
+        
     float percentage = healthPerUnit * health;
-    Vector3 newHealthAmount = new Vector3(percentage/100f , healthBar.localScale.y, healthBar.localScale.z);
+    Vector3 newHealthAmount = new Vector3(percentage / 100f, healthBar.localScale.y, healthBar.localScale.z);
     healthBar.localScale = newHealthAmount;
   }
 
-  public void coinCollected(int coin)
+    public void coinCollected(int coin)
     {
+        
         coinTotal = coinTotal + coin;
+        
         Debug.Log($"{coinTotal} total coins collected so far");
+        
     }
-
 }

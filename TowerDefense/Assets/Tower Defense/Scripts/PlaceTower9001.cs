@@ -7,8 +7,6 @@ public class PlaceTower9001 : MonoBehaviour
   public GameObject Tower;
 
   public GameObject World;
-
-  //static public int purse = Enemy.coinTotal;
     // Start is called before the first frame update
     void Start()  
     {
@@ -18,24 +16,20 @@ public class PlaceTower9001 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-        if (Input.GetMouseButtonDown(0))
+      if (Input.GetMouseButtonDown(0))
       {
-        
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
           if (hit.transform.tag == "TowerSpot" && Enemy.coinTotal >= 5)
           {
-            //Book keeping
-
-                 hit.transform.gameObject.SetActive(false);
-                  PlaceTower(hit.transform.position);
+                    //Book keeping
+                    // if good 
+                    hit.transform.gameObject.SetActive(false);
+                    PlaceTower(hit.transform.position);
                     Enemy.coinTotal -= 5;
-                  Debug.Log($"{Enemy.coinTotal} in my purse now");
-          }
-
+                    Debug.Log($"{Enemy.coinTotal} in my purse now");
+                }
         
     }
 

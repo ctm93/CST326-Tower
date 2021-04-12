@@ -14,9 +14,8 @@ public class HordeManager : MonoBehaviour
   IEnumerator Start()
   {
 
-    //Debug.Log("before spawn small");
     StartCoroutine("SpawnSmallEnemies");
-    StartCoroutine("SpawnBigEnemies");
+    //StartCoroutine("SpawnBigEnemies");
 
     yield break;
 
@@ -41,15 +40,11 @@ public class HordeManager : MonoBehaviour
       yield return new WaitForSeconds(enemyWave.coolDownBetweenSmallWave); // cooldown between groups
     }
 
-    //Debug.Log("done with small");
+    Debug.Log("done with small");
 
   }
 
-  IEnumerator SpawnBigEnemies()
-  {
-    //Debug.Log("big bad");
-    yield return null;
-  }
+
 }
 
 

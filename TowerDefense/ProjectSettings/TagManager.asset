@@ -6,6 +6,9 @@ TagManager:
   tags:
   - SmallGuy
   - BigGuy
+  - Enemy
+  - TowerSpot
+  - HordeManager
   layers:
   - Default
   - TransparentFX
